@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { EditProductComponent } from './edit-product/edit-product.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     ProductsListComponent,
     AddProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    LoginComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,

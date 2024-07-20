@@ -44,9 +44,9 @@ public class Product {
 
     public Product(String nameProduct, Double priceProduct, Date dateCreate) {
         super();
-        this.nameProduct = nameProduct;
-        this.priceProduct = priceProduct;
-        this.dateCreate = dateCreate;
+            this.nameProduct = nameProduct;
+            this.priceProduct = priceProduct;
+            this.dateCreate = dateCreate;
     }
 
     public Product() {

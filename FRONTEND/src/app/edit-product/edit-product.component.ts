@@ -21,15 +21,21 @@ export class EditProductComponent implements OnInit{
   }
   ngOnInit(): void {
     //console.log(this.activatedRoute.snapshot.params['id']);
-   this.currentProduct = this.productService.editProduct(this.activatedRoute.snapshot.params['id']);
-   this.newCategoryId = this.currentProduct.category?.idCategory!;
-   
+    this.productService.CategoriesList().subscribe(c => {
+      this.categories = c;
+    })
+    this.productService.editProduct(this.activatedRoute.snapshot.params['id']).subscribe(  p => {
+           this.currentProduct = p;
+           this.newCategoryId = this.currentProduct.category?.idCategory!;
+    });
   }
 
   updateProduct(){
-    this.newCategory =  this.productService.editCategory(this.newCategoryId);
-    this.currentProduct.category = this.newCategory;
-    this.productService.updateProduct(this.currentProduct);
-    this.route.navigate(['/products-list']);
+    this.currentProduct.category = this.categories.find(c => c.idCategory==this.newCategoryId);
+    this.productService.updateProduct(this.currentProduct).subscribe(p => {
+      this.route.navigate(['/products-list']);
+
+    })
+
   }
 }

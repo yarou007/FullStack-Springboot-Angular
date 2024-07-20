@@ -16,22 +16,23 @@
         PRODUCT
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" routerLink="add-product">ADD</a></li>
-        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" routerLink="add-product" *ngIf="authService.isCreate()">ADD</a></li>
+        
         <li><a class="dropdown-item" routerLink="products-list">LIST</a></li>
       </ul>
     </div>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div class="dropdown">
       <button class="btn btn-secondary bg-dark dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-        [USERNAME]
+        <div *ngIf="authService.isLoggedIn; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>{{authService.loggedUser}}</ng-template>
+        <ng-template #elseBlock>Connexion</ng-template>
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">LOGIN</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">LOGOUT</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">PROFIL</a></li>
+        <li><a *ngIf="!authService.isLoggedIn" class="dropdown-item"  routerLink="login">LOGIN</a></li>
+      
+        <li><a *ngIf="authService.isLoggedIn" class="dropdown-item" (click)="logout()">LOGOUT</a></li>
+   
       </ul>
     </div>
   </ul>

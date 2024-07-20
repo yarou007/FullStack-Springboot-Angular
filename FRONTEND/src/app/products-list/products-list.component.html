@@ -19,8 +19,8 @@
                     <td> {{product.priceProduct}}</td>
                     <td> {{product.category?.category}}</td>
                     <td> {{product.dateCreate | date : "dd/MM/yyyy"}}</td>
-                    <td><a class="btn btn-danger" (click)="deleteProduct(product)">Delete</a></td>
-                    <td><a class="btn btn-secondary" [routerLink]="['/edit-product', product.idProduct]">Edit</a></td>
+                    <td><a *ngIf="authService.isAdmin()"  class="btn btn-danger" (click)="deleteProduct(product)">Delete</a></td>
+                    <td><a *ngIf="authService.isAdmin()" class="btn btn-secondary" [routerLink]="['/edit-product', product.idProduct]">Edit</a></td>
 
                  </tr>
             </tbody>

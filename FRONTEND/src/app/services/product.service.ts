@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProductModel } from '../models/product.model';
 import { CategoryModel } from '../models/category.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { apiURL } from '../config';
 
 
 const httpOptions = {
@@ -18,7 +19,6 @@ export class ProductService {
   product! : ProductModel;
   categories : CategoryModel[];
   category! : CategoryModel;
-   apiURL : string = "http://localhost:8080/api";
 
   constructor(private http : HttpClient){
   this.categories =  []
@@ -26,24 +26,25 @@ export class ProductService {
   }
 
   productList(){
-    return this.http.get<ProductModel[]>(this.apiURL+"/products",httpOptions);
+    return this.http.get<ProductModel[]>(apiURL+"/products",httpOptions);
   }
   addProduct(newProduct : ProductModel){
-     return this.http.post<ProductModel[]>(this.apiURL+"/products/save",newProduct,httpOptions);
+     return this.http.post<ProductModel[]>(apiURL+"/products/save",newProduct,httpOptions);
     //this.products.push(newProduct);
   }
-  deleteProduct(product : ProductModel){
-    const index = this.products.indexOf(product,0);
-    this.products.splice(index,1);
+  deleteProduct(idProduct : number){
+
+     return this.http.delete(apiURL+"/products/"+idProduct);
   }
-  editProduct(id : number){
-    this.product =  this.products.find( p => p.idProduct == id)!;
-    return this.product;
+  editProduct(id : number){   ///products/update
+    return this.http.get<ProductModel>(`${apiURL+"/products"}/${id}`);
+
   }
   updateProduct(product : ProductModel){
-    this.deleteProduct(product);
-    this.addProduct(product);
-    this.sortProduct();
+   // this.deleteProduct(product);
+   // this.addProduct(product);
+    return this.http.put<ProductModel>(apiURL+"/products/update",product,httpOptions);
+     // this.sortProduct();
   }
 
   sortProduct(){
@@ -53,7 +54,7 @@ export class ProductService {
   }
   
   CategoriesList(){
-    return this.http.get<CategoryModel[]>(this.apiURL+"/categories",httpOptions);
+    return this.http.get<CategoryModel[]>(apiURL+"/categories",httpOptions);
   }
   editCategory(id : number){
     this.category =  this.categories.find( c => c.idCategory == id)!;

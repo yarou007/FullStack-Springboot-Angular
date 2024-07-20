@@ -18,7 +18,7 @@ export class AddProductComponent {
 
   constructor(private productService : ProductService, private route : Router){
 
-    productService.CategoriesList().subscribe(c => {
+    this.productService.CategoriesList().subscribe(c => {
       this.categories = c;
     })
    // this.categories = this.productService.CategoriesList();
