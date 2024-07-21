@@ -16,7 +16,9 @@ export class AuthService {
   public isLoggedIn : Boolean = false;
   public roles! : string[];
 
-  constructor(private router : Router) { }
+  constructor(private router : Router) { 
+ 
+  }
   
   SignIn(user : UserModel){
         let validUser  = false;
@@ -56,8 +58,20 @@ export class AuthService {
     localStorage.removeItem('loggedUser');
     localStorage.removeItem('isLoggedIn');
      this.router.navigate(['login']);
+  }
 
+  setLoggedUserLS(login : string){
+           this.loggedUser = login;
+           this.isLoggedIn = true;
+           this.getRoles(login);
+     }
 
+  getRoles(username : string ){
+    this.users.forEach(u => {
+      if (u.username == username){
+        this.roles = u.roles!;
+      }
+    })
   }
 
 }
